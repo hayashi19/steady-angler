@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Fisherman : MonoBehaviour
+[CreateAssetMenu(fileName = "New Fisherman", menuName = "Fisherman")]
+public class Fisherman : ScriptableObject
 {
     // plasyer name and id (unique)
     public string id = "player1";

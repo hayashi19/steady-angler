@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class FishingRod
+[CreateAssetMenu(fileName = "New Rod", menuName = "Rod")]
+public class FishingRod : ScriptableObject
 {
     // nama pancingannya (unique)
-    public string name = "pancingan1";
+    public new string name = "pancingan1";
     
     // gambar pancingannya
     public Sprite sprite;

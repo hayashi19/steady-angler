@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class Fish
+[CreateAssetMenu(fileName = "New Fish", menuName = "Fish")]
+public class Fish : ScriptableObject
 {
     // nama ikan (unique)
-    public string name = "ikan1";
+    public new string name = "ikan1";
 
     // gambar ikannya
     public Sprite sprite;
@@ -22,4 +22,7 @@ public class Fish
 
     // ability `attractiveness` nilai treshold untuk ikan tertarik dengan umpan (@SEE_AT `attractiveness` class FishingBait)
     public int attractiveness = 1;
+
+    // seberapa cepat ikan bergerak
+    public int speed = 1;
 }

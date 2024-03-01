@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class FishingBait
+[CreateAssetMenu(fileName = "New Bait", menuName = "Bait")]
+public class FishingBait : ScriptableObject
 {
     // nama umpan (unique)
-    public string name = "umpan1";
+    public new string name = "umpan1";
 
     // gambar umpannya
     public Sprite sprite;
