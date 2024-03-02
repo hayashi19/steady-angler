@@ -25,4 +25,7 @@ public class Fish : ScriptableObject
 
     // seberapa cepat ikan bergerak
     public int speed = 1;
+
+    // jika ikan sedang ditangkap
+    public bool isCaught = false;
 }
