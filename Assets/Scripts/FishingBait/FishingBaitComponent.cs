@@ -1,72 +1,137 @@
 using UnityEngine;
 
+enum FishingState
+{
+    // saat fisherman diam
+    Idle,
+    // saat fisherman telah melempar umpan, dan umpan belum dimanakan ikan
+    Waiting,
+    // saat umpan telah dimanakan ikan, tapi player masih diam
+    Baited,
+    // setelah umpan dimakan ikan, dan player akan tap tap mancing
+    Catching
+}
+
 public class FishingBaitComponent : MonoBehaviour
 {
+    // data sifat dari bait itu
+    public FishingBait bait;
+
+    // audio
     [SerializeField] private AudioController audioBait;
 
-    private bool isFishing = false;
+    private FishingState fishingState = FishingState.Idle;
+
+    // ikan yang tertangkap
     private FishComponent caughtFish = null;
-    private Rigidbody2D baitRb;
-    private SpringJoint2D fishermanBaitJoint;
 
     private void Start()
     {
-        baitRb = GetComponent<Rigidbody2D>();
-        fishermanBaitJoint = GetComponent<SpringJoint2D>();
-
-        Respawn();
+        // pastingkan posisi umpan berada di tempat spawnnya
+        TakeBait();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        caughtFish =  collision.GetComponent<FishComponent>();
-        Debug.Log(collision.tag + " " + caughtFish.fish.name + " " + caughtFish.fish.isCaught);
+        // tidak ada ikan yang ditangkap? dan ikan datang
+        // ya: masukan ikan yang collide jadi target ikan
+        if (caughtFish == null) caughtFish = collision.GetComponent<FishComponent>();
+        //Debug.Log(caughtFish);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        caughtFish = null;
-        Debug.Log(collision.tag + " " + (caughtFish == null));
+        // ada ikan yang akan ditangkap? dan ikannya pergi
+        // ya: lepas ikan tersebut
+        if (caughtFish != null) caughtFish = null;
+        //Debug.Log(caughtFish);
     }
 
-    private void Respawn()
+    public void Fishing()
     {
+        Debug.Log(fishingState + " " + caughtFish);
+
+        // ketika fisherman dari diam
+        // lalu user tekan tombol fishing
+        // ummpan akan dilemparkan
+        if (fishingState == FishingState.Idle)
+        {
+            ThrowBait();
+
+            Debug.Log("Throw Bait");
+        }
+
+        // ketika umpan sudah dilempar
+        // user menekan tombol fishing
+        // dan ikan tidak ada
+        // maka umpan ditarik lagi
+        else if (fishingState == FishingState.Waiting && caughtFish == null)
+        {
+            TakeBait();
+
+            Debug.Log("Take Bait No Fish");
+        }
+
+        // ketika umpan sudah dilempar
+        // user menekan tombol fishing
+        // dan ikan ada
+        // maka ikan akan ditangkap
+        else if (fishingState == FishingState.Waiting && caughtFish != null)
+        {
+            Baited();
+            Debug.Log("Take Bait With Fish");
+        }
+
+        // ketika umpan sudah dimakan
+        // user menekan tombol fishing
+        // maka akan terjadi process tarik menarik dengan ikan
+        else if(fishingState == FishingState.Baited)
+        {
+            Catching();
+            Debug.Log("PULL PULL PULL!!!!");
+        }
+    }
+
+    private void ThrowBait()
+    {
+        fishingState = FishingState.Waiting;
+
+        // melempar umpan
+        Rigidbody2D baitRb = this.GetComponent<Rigidbody2D>();
+        baitRb.AddForce(new Vector2(2.4f, 16f), ForceMode2D.Impulse);
+
+        // mengubah ukuran panjang maksimal joint
+        SpringJoint2D fishermanBaitJoint = this.GetComponent<SpringJoint2D>();
+        fishermanBaitJoint.distance = 3.2f;
+        fishermanBaitJoint.frequency = 1f;
+
+        audioBait.PlayThrowBaitEffect();
+    }
+
+    private void TakeBait()
+    {
+        fishingState = FishingState.Idle;
+     
+        // menarik lagi umpan dengan cara reset panjang maksimal joint
+        SpringJoint2D fishermanBaitJoint = this.GetComponent<SpringJoint2D>();
         fishermanBaitJoint.distance = 0.56f;
         fishermanBaitJoint.frequency = 0;
     }
 
-    public void ThrowBait()
+    private void Baited()
     {
-        if (isFishing && caughtFish == null)
-        {
-            isFishing = !isFishing;
-         
-            Respawn();
-        }
-        else if (isFishing && caughtFish != null)
-        {
-            caughtFish.fish.isCaught = true;
-            caughtFish.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        fishingState = FishingState.Baited;
 
-            //fishermanBaitJoint = caughtFish.GetComponent<SpringJoint2D>();
-            //fishermanBaitJoint.connectedBody = this.GetComponent<Rigidbody2D>();
-            //fishermanBaitJoint.autoConfigureDistance = false;
-            //fishermanBaitJoint.distance = 2f;
+        // menggabungkan ikan yang akan ditangkap dengan umpan
+        SpringJoint2D baitFishJoint = caughtFish.GetComponent<SpringJoint2D>();
+        baitFishJoint.connectedBody = this.GetComponent<Rigidbody2D>();
+        baitFishJoint.autoConfigureDistance = false;
+        baitFishJoint.distance = 0.005f;
+        baitFishJoint.enabled = true;
+    }
 
-            //fishermanBaitJoint.enabled = true;
-
-            Debug.Log("Catching");
-        }
-        else
-        {
-            isFishing = !isFishing;
-
-            fishermanBaitJoint.distance = 3.2f;
-            fishermanBaitJoint.frequency = 1f;
-
-            baitRb.AddForce(new Vector2(2.4f, 16f), ForceMode2D.Impulse);
-
-            audioBait.PlayThrowBaitEffect();
-        }
+    private void Catching()
+    {
+        //fishingState = FishingState.Waiting;
     }
 }

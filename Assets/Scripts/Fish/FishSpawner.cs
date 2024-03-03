@@ -25,16 +25,7 @@ public class FishSpawner : MonoBehaviour
                     {
                         GameObject spawnedFish = Instantiate(fishObject, transform.position, Quaternion.identity);
                         spawnedFish.transform.position = new Vector3(spawnedFish.transform.position.x, Random.Range(-4f, -1f), spawnedFish.transform.position.z);
-
-                        //if (fishComponent.fish.isCaught)
-                        //{
-                            spawnedFish.GetComponent<Rigidbody2D>().velocity = new Vector3(fishComponent.fish.speed * 0.32f, 0, 0);
-                        //}
-                        //else
-                        //{
-                        //    spawnedFish.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-                        //}
-
+                        spawnedFish.GetComponent<Rigidbody2D>().velocity = new Vector3(fishComponent.fish.speed * 0.32f, 0, 0);
                         spawnedFish.transform.SetParent(this.transform);
                     }
                 }

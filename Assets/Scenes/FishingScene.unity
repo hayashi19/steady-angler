@@ -249,6 +249,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 711153079}
+  - {fileID: 41879027}
   m_Father: {fileID: 212957662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -371,7 +372,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 711153079}
+  m_Father: {fileID: 26434638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -424,7 +425,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 770418809}
         m_TargetAssemblyTypeName: FishingBaitComponent, Assembly-CSharp
-        m_MethodName: ThrowBait
+        m_MethodName: Fishing
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1470,7 +1471,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 41879027}
   - {fileID: 1182019403}
   - {fileID: 1672283934}
   - {fileID: 1408377097}
@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5ec82b4530c404d9f25255ce9a446f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioBait: {fileID: 1958604219}
+  bait: {fileID: 11400000, guid: 2bfcdb1bffe52aa448aa5e1c6e11d1c0, type: 2}
 --- !u!1 &879416001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,6 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioBait: {fileID: 1958604219}
+  bait: {fileID: 770418803}
 --- !u!1 &1158631743
 GameObject:
   m_ObjectHideFlags: 0
