@@ -38,7 +38,10 @@ public class FishSpawner : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if (child.position.x > Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 512, 0, 0)).x)
+            float screenHeight = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+            float screenWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+
+            if (child.position.x > screenWidth + 4 || child.position.y > screenHeight + 4 || child.position.y < -screenHeight - 4)
             {
                 Destroy(child.gameObject);
             }

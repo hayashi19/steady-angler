@@ -25,6 +25,12 @@ public class FishingBaitComponent : MonoBehaviour
     // ikan yang tertangkap
     private FishComponent caughtFish = null;
 
+    // stabilization bar
+    [SerializeField] private GameObject stabilization;
+    private StabilizationComponent stabilizationComponent;
+    [SerializeField] private GameObject stabilizationPoint;
+    private StabilizationPointComponent stabilizationPointComponent;
+
     private void Start()
     {
         // pastingkan posisi umpan berada di tempat spawnnya
@@ -49,7 +55,7 @@ public class FishingBaitComponent : MonoBehaviour
 
     public void Fishing()
     {
-        Debug.Log(fishingState + " " + caughtFish);
+        //Debug.Log(fishingState + " " + caughtFish);
 
         // ketika fisherman dari diam
         // lalu user tekan tombol fishing
@@ -57,8 +63,7 @@ public class FishingBaitComponent : MonoBehaviour
         if (fishingState == FishingState.Idle)
         {
             ThrowBait();
-
-            Debug.Log("Throw Bait");
+            //Debug.Log("Throw Bait");
         }
 
         // ketika umpan sudah dilempar
@@ -68,8 +73,7 @@ public class FishingBaitComponent : MonoBehaviour
         else if (fishingState == FishingState.Waiting && caughtFish == null)
         {
             TakeBait();
-
-            Debug.Log("Take Bait No Fish");
+            //Debug.Log("Take Bait No Fish");
         }
 
         // ketika umpan sudah dilempar
@@ -79,16 +83,16 @@ public class FishingBaitComponent : MonoBehaviour
         else if (fishingState == FishingState.Waiting && caughtFish != null)
         {
             Baited();
-            Debug.Log("Take Bait With Fish");
+            //Debug.Log("Take Bait With Fish");
         }
 
         // ketika umpan sudah dimakan
         // user menekan tombol fishing
         // maka akan terjadi process tarik menarik dengan ikan
-        else if(fishingState == FishingState.Baited)
+        else if ((fishingState == FishingState.Baited || fishingState == FishingState.Catching) && stabilizationComponent.fish != null)
         {
             Catching();
-            Debug.Log("PULL PULL PULL!!!!");
+            //Debug.Log("PULL PULL PULL!!!!");
         }
     }
 
@@ -108,19 +112,23 @@ public class FishingBaitComponent : MonoBehaviour
         audioBait.PlayThrowBaitEffect();
     }
 
-    private void TakeBait()
+    public void TakeBait()
     {
         fishingState = FishingState.Idle;
-     
+
         // menarik lagi umpan dengan cara reset panjang maksimal joint
         SpringJoint2D fishermanBaitJoint = this.GetComponent<SpringJoint2D>();
         fishermanBaitJoint.distance = 0.56f;
         fishermanBaitJoint.frequency = 0;
+
+        caughtFish = null;
     }
 
     private void Baited()
     {
         fishingState = FishingState.Baited;
+
+        caughtFish.fish.isCaught = true;
 
         // menggabungkan ikan yang akan ditangkap dengan umpan
         SpringJoint2D baitFishJoint = caughtFish.GetComponent<SpringJoint2D>();
@@ -128,10 +136,21 @@ public class FishingBaitComponent : MonoBehaviour
         baitFishJoint.autoConfigureDistance = false;
         baitFishJoint.distance = 0.005f;
         baitFishJoint.enabled = true;
+
+        // menampilkan bar stabilisasi
+        stabilization.SetActive(true);
+
+        stabilizationComponent = stabilization.GetComponent<StabilizationComponent>();
+        //stabilizationComponent.isCaught = true;
+        stabilizationComponent.fish = caughtFish.fish;
+
+        stabilizationPointComponent = stabilizationPoint.GetComponent<StabilizationPointComponent>();
+        stabilizationPointComponent.fish = caughtFish.gameObject; 
     }
 
     private void Catching()
     {
-        //fishingState = FishingState.Waiting;
+        fishingState = FishingState.Catching;
+        stabilizationComponent.AddForceStabilizationPoint();
     }
 }

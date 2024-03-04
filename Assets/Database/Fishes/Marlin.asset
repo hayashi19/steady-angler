@@ -19,3 +19,4 @@ MonoBehaviour:
   strength: 6
   attractiveness: 4
   speed: 4
+  isCaught: 0
