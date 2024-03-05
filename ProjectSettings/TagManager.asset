@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: FishingLine
+    uniqueID: 2377426839
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

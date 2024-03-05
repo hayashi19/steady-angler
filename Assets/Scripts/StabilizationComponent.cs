@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class StabilizationComponent : MonoBehaviour
@@ -12,6 +11,7 @@ public class StabilizationComponent : MonoBehaviour
     public float areaStrength = 1f;
     public float pointSpeed = 0.5f;
     public float pointStrength = 1.2f;
+    public float maxPointVelocity = 10f;
     public float bound = 0.86f;
 
     void Start()
@@ -43,7 +43,8 @@ public class StabilizationComponent : MonoBehaviour
 
     private void MoveStabilizationPoint()
     {
-        stabilizationPoint.GetComponent<Rigidbody2D>().AddForce(Vector2.left * pointSpeed, ForceMode2D.Force);
+        
+        if (stabilizationPoint.transform.position.x > -bound) stabilizationPoint.GetComponent<Rigidbody2D>().AddForce(Vector2.left * pointSpeed * Time.deltaTime, ForceMode2D.Force);
 
         float x = stabilizationPoint.transform.position.x;
         if (x < -bound) x = -bound;
@@ -60,11 +61,14 @@ public class StabilizationComponent : MonoBehaviour
         fish = null;
     }
 
-
     public void AddForceStabilizationPoint()
     {
-        //print("Add force");
-        stabilizationPoint.GetComponent<Rigidbody2D>().AddForce(Vector2.right * pointStrength, ForceMode2D.Impulse);
+        Rigidbody2D rb = stabilizationPoint.GetComponent<Rigidbody2D>();
+        if (rb.velocity.magnitude < maxPointVelocity)
+        {
+            if (stabilizationPoint.transform.position.x < bound)
+                rb.AddForce(Vector2.right * pointStrength * Time.deltaTime, ForceMode2D.Impulse);
+        }
     }
 
     IEnumerator ChangeDirection()
