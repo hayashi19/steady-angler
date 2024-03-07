@@ -20,4 +20,4 @@ MonoBehaviour:
   attractiveness: 5
   speed: 3
   isCaught: 1
-  maxPoint: 10000
+  maxPoint: 5000

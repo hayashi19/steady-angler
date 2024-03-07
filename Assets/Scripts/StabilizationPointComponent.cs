@@ -20,6 +20,7 @@ public class StabilizationPointComponent : MonoBehaviour
     public FishCondition fishCondition = FishCondition.Catching;
 
     public Text fishingCountText, fishingPointText;
+    public Text ikanBadut, IkanMarlin, ikanTiger;
 
     private void Update()
     {
@@ -89,12 +90,16 @@ public class StabilizationPointComponent : MonoBehaviour
         if(fishType == "Tiger Shark")
         {
             AchievementIkan.checkNangkap(false, false, true);
-        }else if(fishType == "Marlin")
+            ikanTiger.text = AchievementIkan.IkanTigerText();
+        }
+        else if(fishType == "Marlin")
         {
             AchievementIkan.checkNangkap(false, true, false);
+            IkanMarlin.text = AchievementIkan.IkanMarlinTeks();
         }else
         {
             AchievementIkan.checkNangkap(true,false, false);
+            ikanBadut.text = AchievementIkan.IkanBadutTeks();
         }
         fishingCountText.text = fishCount.ToString();
 
