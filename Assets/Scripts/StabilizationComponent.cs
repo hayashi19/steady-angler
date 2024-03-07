@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StabilizationComponent : MonoBehaviour
 {
-    public GameObject stabilizationBar, stabilizationArea, stabilizationPoint;
+    public GameObject stabilizationBar, stabilizationArea, stabilizationPoint; //128 point speed, 32 point strength
     public Fish fish = null;
     //public bool isCaught = false;
 

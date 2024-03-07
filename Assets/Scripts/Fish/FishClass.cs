@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Fish", menuName = "Fish")]
@@ -28,4 +29,6 @@ public class Fish : ScriptableObject
 
     // jika ikan sedang ditangkap
     public bool isCaught = false;
+
+    public int maxPoint = 50;
 }
