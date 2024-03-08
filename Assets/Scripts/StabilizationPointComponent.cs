@@ -13,7 +13,7 @@ public class StabilizationPointComponent : MonoBehaviour
     public FishCaughtAttributes AchievementIkan = new FishCaughtAttributes(0, 0, 0);
 
     private bool isInside = false;
-    private int fishCount = 0;
+    private int fishCount = 0; //ngitung jumlah duit
     private string fishType;
     private int fishingPoint = 0;
     public int fishingTarget = 1000;
