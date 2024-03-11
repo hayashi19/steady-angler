@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8210f9b4ec40fb544b9c7a1faa5a6514, type: 3}
-  m_Name: BronzeRod
+  m_Name: DiamondRod
   m_EditorClassIdentifier: 
-  name: Bronze Rod
+  name: Diamond Rod
   sprite: {fileID: 0}
-  price: 150
-  rarity: 2
-  level: 2
-  strength: 2
-  sensitivity: 2
+  price: 700
+  rarity: 5
+  level: 5
+  strength: 5
+  sensitivity: 5
   status: 0
   equip: 0

@@ -26,4 +26,7 @@ public class FishingRod : ScriptableObject
     // semakin tinggi nilai `stabilitas` semakin jarang ber stabilitas berpindah-pindah
     // nantinya ini akan saling berbenturan dengan ability `strength` fish (@SEE_AT strength class Fish)
     public int sensitivity = 1;
+
+    public bool status = false;
+    public bool equip = false;
 }

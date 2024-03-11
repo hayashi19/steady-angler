@@ -6,6 +6,8 @@ public class Fisherman : ScriptableObject
     // plasyer name and id (unique)
     public string id = "player1";
 
+    public int Money = 0;
+
     // owned fishing rod list
     public FishingRod[] ownedFishingRods;
 
