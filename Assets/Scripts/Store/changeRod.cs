@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class changeRod : MonoBehaviour
 {
+    public Fisherman fishermanAccount;
     public FishingRod[] listRods;
     public Text rod_name;
     public Text rod_price;
@@ -12,6 +14,7 @@ public class changeRod : MonoBehaviour
     public GameObject buttonBuy;
     public GameObject buttonEquip;
     public GameObject buttonEquiped;
+    public GameObject panelNoMoney;
     public void findEquiped()
     {
         for (int i = 0; i < listRods.Length; i++)
@@ -80,8 +83,17 @@ public class changeRod : MonoBehaviour
 
     public void onClickBuy()
     {
-        listRods[rod_id].status = true;
-        display();
+        if(fishermanAccount.Money >= listRods[rod_id].price)
+        {
+            fishermanAccount.Money -= listRods[rod_id].price;
+            listRods[rod_id].status = true;
+            display();
+        }
+        else
+        {
+            panelNoMoney.SetActive(true);
+        }
+        
     }
 
     public void onClickEquip()
@@ -97,11 +109,5 @@ public class changeRod : MonoBehaviour
     void Start()
     {
         findEquiped();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

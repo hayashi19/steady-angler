@@ -11,9 +11,9 @@ public class StabilizationPointComponent : MonoBehaviour
     public GameObject fish = null;
     public FishingBaitComponent bait;
     public FishCaughtAttributes AchievementIkan = new FishCaughtAttributes(0, 0, 0);
+    public Fisherman fishermanAccount;
 
     private bool isInside = false;
-    private int fishCount = 0; //ngitung jumlah duit
     private string fishType;
     private int fishingPoint = 0;
     public int fishingTarget = 1000;
@@ -21,6 +21,11 @@ public class StabilizationPointComponent : MonoBehaviour
 
     public Text fishingCountText, fishingPointText;
     public Text ikanBadut, IkanMarlin, ikanTiger;
+
+    private void Start()
+    {
+        fishingCountText.text = fishermanAccount.Money.ToString();
+    }
 
     private void Update()
     {
@@ -85,12 +90,13 @@ public class StabilizationPointComponent : MonoBehaviour
         ResetFishingPoint();
 
         // add to fish count
-        fishCount += this.fish.GetComponent<FishComponent>().fish.price;
+        //fishermanAccount.Money += this.fish.GetComponent<FishComponent>().fish.price; to produce money
         fishType = this.fish.GetComponent<FishComponent>().fish.name;
         if(fishType == "Tiger Shark")
         {
             AchievementIkan.checkNangkap(false, false, true);
             ikanTiger.text = AchievementIkan.IkanTigerText();
+             //= this.fish.GetComponent<FishComponent>().fish;
         }
         else if(fishType == "Marlin")
         {
@@ -101,7 +107,8 @@ public class StabilizationPointComponent : MonoBehaviour
             AchievementIkan.checkNangkap(true,false, false);
             ikanBadut.text = AchievementIkan.IkanBadutTeks();
         }
-        fishingCountText.text = fishCount.ToString();
+        fishermanAccount.AddFish(this.fish.GetComponent<FishComponent>().fish);
+        fishingCountText.text = fishermanAccount.Money.ToString();
 
         // set fish null
         this.fish = null;
