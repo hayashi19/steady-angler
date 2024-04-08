@@ -5,18 +5,36 @@ using UnityEngine.UI;
 
 public class BackpackController : MonoBehaviour
 {
-    [SerializeField] private Fisherman fishingAccount;
+    [SerializeField] private Fisherman fishingAccount; //this script is equipped in inventory backpack gameobject
     public Transform inventoryParent;
     [SerializeField] private Sprite[] inventorySlots;
+    private StabilizationPointComponent showingMoney;
     Image HighlightItems;
     void Start()
     {
         UpdateInventory();
     }
     
+    public void SellAllFish()
+    {
+        int totalMoney = 0;
 
+        foreach (var fish in fishingAccount.caughtFishes)
+        {
+            totalMoney += fish.price;
+        }
+        // Add totalMoney to the fishingAccount money
+        fishingAccount.Money += totalMoney;
+        
+
+        // Clear caughtFishes array
+        fishingAccount.caughtFishes = new Fish[0];
+        UpdateInventory();
+        //showingMoney.updateMoney();
+    }
     public void UpdateInventory()
     {
+        ClearInventory();
         int inventorySlotCount = inventoryParent.childCount;
 
         for(int i = 0; i < inventorySlotCount; i++)
@@ -33,5 +51,15 @@ public class BackpackController : MonoBehaviour
             HighlightItems.sprite = fishingAccount.caughtFishes[i].sprite;
         }
     }
-  
+    private void ClearInventory()
+    {
+        // Clear all inventory slots by destroying their children
+        foreach (Transform slot in inventoryParent)
+        {
+            foreach (Transform child in slot)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 }

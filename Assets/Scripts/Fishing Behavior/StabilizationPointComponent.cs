@@ -59,7 +59,6 @@ public class StabilizationPointComponent : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isInside = true;
@@ -72,6 +71,10 @@ public class StabilizationPointComponent : MonoBehaviour
 
     public FishCondition GetFishCondition() { return fishCondition; }
 
+    public void updateMoney()
+    {
+        fishingCountText.text = fishermanAccount.Money.ToString();
+    }
     private void WinCondition()
     {
         // set condition to caught fish
@@ -108,7 +111,7 @@ public class StabilizationPointComponent : MonoBehaviour
             ikanBadut.text = AchievementIkan.IkanBadutTeks();
         }
         fishermanAccount.AddFish(this.fish.GetComponent<FishComponent>().fish);
-        fishingCountText.text = fishermanAccount.Money.ToString();
+        //fishingCountText.text = fishermanAccount.Money.ToString();
 
         // set fish null
         this.fish = null;
