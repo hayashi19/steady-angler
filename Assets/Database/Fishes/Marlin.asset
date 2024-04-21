@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ecf7738be307e4bad9929ae890abb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2b8bcf965b6c64f8b5dcd7a3718c5f, type: 3}
   m_Name: Marlin
   m_EditorClassIdentifier: 
-  name: Marlin
-  sprite: {fileID: 21300000, guid: a24cd25a685518f4d93db92a250b3ced, type: 3}
-  price: 35
-  rarity: 4
-  strength: 6
-  attractiveness: 4
-  speed: 4
-  isCaught: 0
+  name: Marline
+  sprite: {fileID: 21300000, guid: 7c1659b2e85c53e428858bf0374ccbc4, type: 3}
+  rarity: 0.15
+  point: 5
+  speed: 1.8
+  strenght: 0.4
+  max: 300
+  min: -300
