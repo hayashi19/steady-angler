@@ -19,4 +19,5 @@ MonoBehaviour:
   strength: 6
   attractiveness: 4
   speed: 4
-  isCaught: 0
+  isCaught: 1
+  maxPoint: 3000

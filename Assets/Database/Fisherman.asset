@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2538d7a7dd2a1d443b3f778c21594fae, type: 3}
   m_Name: Fisherman
   m_EditorClassIdentifier: 
-  id: player1
+  id: 1
+  name: Luis
+  Money: 0
   ownedFishingRods:
   - {fileID: 11400000, guid: 30a489c59a0fc9d459274887e37f7699, type: 2}
-  activeFishingRod: {fileID: 11400000, guid: 30a489c59a0fc9d459274887e37f7699, type: 2}
+  activeFishingRod: {fileID: 11400000, guid: 29650c23c48a95f489eb322f1622adb3, type: 2}
   ownedFishingBaits:
   - {fileID: 11400000, guid: 2bfcdb1bffe52aa448aa5e1c6e11d1c0, type: 2}
   activeFishingBait: {fileID: 11400000, guid: 2bfcdb1bffe52aa448aa5e1c6e11d1c0, type: 2}

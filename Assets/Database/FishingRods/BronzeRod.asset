@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bronze Rod
   sprite: {fileID: 0}
-  price: 1
-  rarity: 1
-  level: 1
-  strength: 1
-  sensitivity: 1
+  price: 150
+  rarity: 2
+  level: 2
+  strength: 2
+  sensitivity: 2
+  status: 0
+  equip: 0
